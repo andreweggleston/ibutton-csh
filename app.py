@@ -18,9 +18,10 @@ class IbuttonHandler(tornado.web.RequestHandler):
         ldap = CSHLDAP(environ.get('IBUTTON_LDAP_DN'), environ.get('IBUTTON_LDAP_PASS'))
         # get the ibutton from the arguments
         ibutton = self.get_argument('ibutton')
-        entry = ldap.get_member_ibutton(val=ibutton)[0]
+        entry = ldap.get_member_ibutton(val=ibutton).__dict__.get('__dn__')
+        entry = entry.split(',')
         response = {
-            'username': entry[1]['uid'],
+            'username': entry[0][4:],
             # entryUUID temporarily disabled while I work out some permissions errors
             # 'entryUUID': entry[1]['entryUUID']
         }
