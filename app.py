@@ -10,7 +10,6 @@ class IbuttonHandler(tornado.web.RequestHandler):
         # Call out to ldap, return a json dict
         # contents: entryUUID, username
 
-
         # To move to production, change these initialization values
         # to a user/pass which can search ibuttons
         ldap = CSHLDAP('user', 'password')
