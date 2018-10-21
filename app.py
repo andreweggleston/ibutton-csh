@@ -5,6 +5,9 @@ from csh_ldap import CSHLDAP
 
 class IbuttonHandler(tornado.web.RequestHandler):
 
+    def data_received(self, chunk):
+        pass
+
     def get(self):
         # Do the actual work here
         # Call out to ldap, return a json dict
@@ -15,7 +18,7 @@ class IbuttonHandler(tornado.web.RequestHandler):
         ldap = CSHLDAP('user', 'password')
         # get the ibutton from the arguments
         ibutton = self.get_argument('ibutton')
-        entry = ldap.search(ibutton=ibutton)[0]
+        entry = ldap.get_member_ibutton(val=ibutton)[0]
         response = {
             'username': entry[1]['uid'],
             # entryUUID temporarily disabled while I work out some permissions errors
