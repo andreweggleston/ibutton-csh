@@ -1,7 +1,7 @@
 import tornado.ioloop
 import tornado.web
 from csh_ldap import CSHLDAP
-
+from os import environ
 
 class IbuttonHandler(tornado.web.RequestHandler):
 
@@ -12,7 +12,7 @@ class IbuttonHandler(tornado.web.RequestHandler):
 
         # To move to production, change these initialization values
         # to a user/pass which can search ibuttons
-        ldap = CSHLDAP('user', 'password')
+        ldap = CSHLDAP(environ.get('IBUTTON_LDAP_DN'), environ.get('IBUTTON_LDAP_PASS'))
         # get the ibutton from the arguments
         ibutton = self.get_argument('ibutton')
         entry = ldap.search(ibutton=ibutton)[0]
