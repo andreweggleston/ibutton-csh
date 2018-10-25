@@ -19,6 +19,7 @@ class IbuttonHandler(tornado.web.RequestHandler):
         # get the ibutton from the arguments
         ibutton = self.get_argument('ibutton')
         ibutton = "*" + ibutton[3:] + "01"
+        print(ibutton)
         entry = ldap.get_member_ibutton(val=ibutton).__dict__.get('__dn__')
         entry = entry.split(',')
         response = {
@@ -26,6 +27,7 @@ class IbuttonHandler(tornado.web.RequestHandler):
             # entryUUID temporarily disabled while I work out some permissions errors
             # 'entryUUID': entry[1]['entryUUID']
         }
+        print(response)
         # return it
         self.write(response)
 
